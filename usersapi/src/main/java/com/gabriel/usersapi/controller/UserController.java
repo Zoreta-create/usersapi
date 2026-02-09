@@ -28,4 +28,11 @@ public class UserController {
         public List<UserResponseDTO>findAll() {
             return service.findAll();
         }
+
+    //GET - LISTAR USUARIOS PELO {ID}
+    @GetMapping("/{id}")
+    public UserResponseDTO findById(
+            @PathVariable Long id) {
+        return service.fidnById(id);
+    }
 }
