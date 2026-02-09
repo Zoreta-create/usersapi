@@ -3,8 +3,10 @@ package com.gabriel.usersapi.service;
 import com.gabriel.usersapi.dto.UserCreateDTO;
 import com.gabriel.usersapi.dto.UserResponseDTO;
 import com.gabriel.usersapi.model.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.gabriel.usersapi.repository.UserRepository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -46,5 +48,12 @@ public class UserService {
                         user.getEmail()
                 ))
                 .toList();
+    }
+
+    public UserResponseDTO fidnById(Long id){
+        User user = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException( HttpStatus.NOT_FOUND, "user não encontrado"));
+
+        return new UserResponseDTO(user.getId(), user.getName(), user.getEmail());
     }
 }
